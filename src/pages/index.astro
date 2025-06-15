@@ -1,0 +1,123 @@
+---
+import './src/styles/global.css';
+import Carousel from '../components/carousel.tsx';
+import Team from '../components/team.tsx';
+import Nav from '../components/nav';
+
+const screenshots = [
+  { 
+    image: '/images/img1.webp', 
+    title: "Spędź swój ostatni dzień",
+    phrases: [
+      'Dla wielu ten dzień był trudny, dla ciebie jednak był tym ostatnim w wiosce. Ostatnia szansa na spojrzenie w oczy zarówno sowim ukochanym jak i wrogom. Mozesz spędzić z nimi swoje ostatnie chwile – czas tyka, decyzji coraz więcej, wielu ludzi na ciebie czeka, ale dla kogo wykorzystasz swoje ostatnie chwile w tym mieście?'
+    ]
+  },
+  { 
+    image: '/images/img2.webp', 
+    title: "Wybieraj mądrze",
+    phrases: [
+      'Gra The Last Day jest grą z kategorii Adventure, wcielasz się w żołnierza żyjącego w  ciężkich czasach który ma zaraz opuścić swoich najbliższych i wyruszyć na wojnę.',
+      'Gracz musi walczyć z czasem i dobrze go oszczędzać - niektórzy w wiosce nie będą na ciebie czekać cały dzień, zegar jest kluczem, ale też złem, ponieważ czas cię goni drogi graczu.'
+    ]
+  }
+];
+const carouselImages = [
+  "/images/ci1.webp",
+  "/images/ci2.webp",
+  "/images/ci3.webp",
+  "/images/ci4.webp",
+  "/images/ci5.webp",
+  "/images/ci6.webp",
+]
+const team = [
+  {
+    name: "Abel Wąsowski",
+    role: "Lider",
+    description: "Odpowiedzialny za zarządzanie repozytorium na GitHubie oraz projektowanie poziomów. Wspiera także zespół w procesie programowania gry.",
+    logo: "/images/profile/abel.webp"
+  },
+  {
+    name: "Roman Dykyi",
+    role: "Główny programista",
+    description: "Odpowiada za jakość i spójność kodu, implementuję narzędzia dla game designera. Wspiera zespół techniczną wiedzą i doświadczeniem.",
+    logo: "/images/profile/ja.webp"
+  },
+  {
+    name: "Bartosz Kwiatkowski",
+    role: "Główny game designer",
+    description: "Odpowiedzialny za koncepcję gry i wybór jej tematu. Wniósł do projektu kreatywną wizję. Tworzy dialogi i zadania.",
+    logo: "/images/profile/bartek.webp"
+  },
+  {
+    name: "Maksymilian Karpiński",
+    role: "3D Artist",
+    description: "Odpowiedzialny za modele 3D oraz animacje w grze, dbając o ich jakość i spójność stylistyczną.",
+    logo: "/images/profile/maks.webp"
+  },
+  {
+    name: "Joachim Wałęga",
+    role: "QA Tester",
+    description: "Zajmuje się testowaniem gry, wykrywaniem błędów oraz raportowaniem problemów, dbając o jej jakość końcową.",
+    logo: "/images/profile/joe.webp"
+  },
+];
+---
+
+<!DOCTYPE html>
+<html lang="pl-PL">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image" href="/favicon.png" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>The Last Day</title>
+	</head>
+	<body class="bg-[#F1F1F1] text-[#1C1C1C] font-sans">
+    <!-- NAV -->
+     <Nav client:visible />
+
+    <!-- TITLE -->
+    <h2 class="mt-12 text-5xl font-serif font-extrabold text-[#1C1C1C] text-center relative mb-10 tracking-wide uppercase">
+      The Last Day
+      <span class="block h-1 w-24 bg-[#D4AF37] mx-auto mt-4 rounded-full"></span>
+    </h2>
+
+    <!-- SCREENSHOTS (Alternating) -->
+    <section class="space-y-12 p-6 px-20">
+      {screenshots.map((ss, i) => (
+        <div class={`flex flex-col md:flex-row ${i % 2 === 0 ? '' : 'md:flex-row-reverse'} items-start gap-6`}>
+          <img src={ss.image} alt="screenshot" class="w-full md:w-1/2 rounded-lg shadow-lg" />
+          <div class="md:w-1/2">
+            <h4 class="text-3xl font-semibold mb-2 text-[#1C1C1C]">{ss.title}</h4>
+            {ss.phrases.map((x) => (
+              <p class="text-lg mt-5 text-[#1C1C1C]  break-words whitespace-normal">{x}</p>
+            ))}
+          </div>
+        </div>
+      ))}
+    </section>
+
+    <h3 class="text-4xl font-extrabold text-center text-[#1C1C1C] mb-6">Zrzuty ekranu</h3>
+	  <Carousel client:visible images={carouselImages} transitionSpeed={100} interval={6000} />
+
+    <section class="bg-[#E0E0E0] text-[#1C1C1C] py-16 px-6 text-center">
+      <h3 class="text-4xl font-extrabold mb-4 uppercase tracking-wide">Pobierz teraz</h3>
+      <p class="text-lg mb-8 max-w-2xl mx-auto">
+        Gra jest dostępna dla Windows w wersji beta dla każdego gracza, który chce odkryć historię „The Last Day”. Nie czekaj – dołącz do świata pełnego emocji, decyzji i ostatnich pożegnań.
+      </p>
+      <p class="text-lg mb-8 max-w-2xl mx-auto">
+        Kliknij przycisk poniżej, aby pobrać grę i rozpocząć swoją podróż już dziś.
+      </p>
+      <a
+        href="https://github.com/S3ri0usGuy/Kraby-bez-rak-the-gra/releases/tag/beta-v1.1"
+        target="_blank"
+        class="inline-block bg-[#1C1C1C] text-white hover:bg-[#333] px-8 py-3 rounded-lg text-xl font-semibold transition"
+      >
+        Pobierz Betę v1.1
+      </a>
+    </section>
+
+    <!-- TEAM -->
+    <Team team={team} />
+  </body>
+</html>
